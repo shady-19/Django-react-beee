@@ -27,7 +27,28 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CORS_ALLOWED_ORIGINS = [   
+    "http://127.0.0.1:3000",
+    'http://localhost:3000'
+    ]
 
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    "http://127.0.0.1:3000",
+     'http//:localhost:8000',
+     # for localhost (REACT Default)
+    # 'http://192.168.0.50:3000',  # for network 
+    # 'http://localhost:8080',  # for localhost (Developlemt)
+    # 'http://192.168.0.50:8080',  # for network (Development)
+)
+
+CORS_ORIGINAL_ALLOW_ALL= True
+CORS_ALLOW_CREDENTIALS= True
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = ('content-disposition', 'accept-encoding',
+                      'content-type', 'accept', 'origin', 'authorization')
 
 
 # Application definition
@@ -50,17 +71,15 @@ INSTALLED_APPS = [
 
 
 REST_FRAMEWORK = {
-    
-     
-    
+      
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
 }
 
-MIDDLEWARE = [
+MIDDLEWARE = [  
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -154,15 +173,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'lms.librarian'
 
-
-CORS_ALLOWED_ORIGINS = [
-   
-    "http://localhost:3000",
-    
-]
-
-CORS_ORIGINAL_ALLOW_ALL= True
-CORS_ALLOW_CREDENTIALS= True
 
 
 JWT_AUTH = {

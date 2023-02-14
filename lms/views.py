@@ -13,7 +13,7 @@ import jwt, datetime
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
-import jwt,datetime
+# import jwt,datetime
 from rest_framework.filters import SearchFilter
 from django.http import HttpResponse
 import requests
@@ -60,30 +60,34 @@ class LoginView(APIView):
         
         response = Response()  
 
-        response.set_cookie(key='jwt',value=token, httponly=True)  
-
+        response.set_cookie('jwt',token)  
+        
         response.data={
             'jwt': token,
-            'name': email
+            'email': email , 
+
         } 
         return response
-    
-    
-    
+
+ 
+        
 #Librarian View
 class LibView(APIView):
     
     def get(self, request):
-        token = request.COOKIES.get('jwt')
+        token = request.headers['Authorization']
+        # token = request.COOKIES.get('jwt')
 
         if not token:
-            raise AuthenticationFailed('Unauthenticated User')
+            raise AuthenticationFailed()
 
         try:
             payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         
         except jwt.ExpiredSignatureError :
             raise AuthenticationFailed('Unauthenticated User')
+        
+        user=librarian.objects.filter().first()
         
         user=librarian.objects.filter(id=payload['id']).first()
         serializer =UserSerializer(user)
@@ -130,16 +134,18 @@ class LogoutView(APIView):
 #Add Book
 class BookRegisterView(APIView):
     def post(self,request):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated User')
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        # token = request.headers['Authorization']
         
-        except jwt.ExpiredSignatureError :
-            raise AuthenticationFailed('Unauthenticated User')
+        # # token = request.COOKIES.get('jwt')
+
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated User')
+
+        # try:
+        #     payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        
+        # except jwt.ExpiredSignatureError :
+        #     raise AuthenticationFailed('Unauthenticated User')
 
         serializer = RegBookSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -149,16 +155,16 @@ class BookRegisterView(APIView):
 #Delete Book
 class BookDeleteView(APIView):
     def delete(self,request,bid=None):
-        token = request.COOKIES.get('jwt')
+        # token = request.COOKIES.get('jwt')
 
-        if not token:
-            raise AuthenticationFailed('Unauthenticated User')
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated User')
 
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        # try:
+        #     payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         
-        except jwt.ExpiredSignatureError :
-            raise AuthenticationFailed('Unauthenticated User')
+        # except jwt.ExpiredSignatureError :
+        #     raise AuthenticationFailed('Unauthenticated User')
 
         try:
       # Check if the todo item the user wants to update exists
@@ -225,16 +231,16 @@ class AllUserView(APIView):
 #Reg User        
 class UserRegisterView(APIView):
     def post(self,request):
-        token = request.COOKIES.get('jwt')
+        # token = request.COOKIES.get('jwt')
 
-        if not token:
-            raise AuthenticationFailed('Unauthenticated User')
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated User')
 
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        # try:
+        #     payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         
-        except jwt.ExpiredSignatureError :
-            raise AuthenticationFailed('Unauthenticated User')
+        # except jwt.ExpiredSignatureError :
+        #     raise AuthenticationFailed('Unauthenticated User')
 
         serializer = RegUserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -267,16 +273,17 @@ class UserLoginView(APIView):
 #Delete User
 class UserDeleteView(APIView):
     def delete(self,request,uid=None):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated User')
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         
-        except jwt.ExpiredSignatureError :
-            raise AuthenticationFailed('Unauthenticated User')
+        # token = request.COOKIES.get('jwt')
+
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated User')
+
+        # try:
+        #     payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        
+        # except jwt.ExpiredSignatureError :
+        #     raise AuthenticationFailed('Unauthenticated User')
 
         try:
       # Check if the todo item the user wants to update exists
@@ -313,16 +320,16 @@ class StudentListView(ListAPIView):
     
 class IssueBookView(APIView):
     def post(self,request):
-        token = request.COOKIES.get('jwt')
+        # token = request.COOKIES.get('jwt')
 
-        if not token:
-            raise AuthenticationFailed('Unauthenticated User')
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated User')
 
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        # try:
+        #     payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         
-        except jwt.ExpiredSignatureError :
-            raise AuthenticationFailed('Unauthenticated User')
+        # except jwt.ExpiredSignatureError :
+        #     raise AuthenticationFailed('Unauthenticated User')
 
         serializer = IssueBookSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
