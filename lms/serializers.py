@@ -61,7 +61,7 @@ class RegBookSerializer(serializers.ModelSerializer):
   
     class Meta:
         model = books
-        fields = ['bid','bname','author','title','subject','about',]      
+        fields = ['bid','bname','author','subject','about',]      
         
         
     def create(self, validated_data):
@@ -74,7 +74,7 @@ class IssueBookSerializer(serializers.ModelSerializer):
   
     class Meta:
         model = booksd
-        fields = ['bid' , 'id' , 'uid',]      
+        fields = ['bid' , 'id' , 'uid','oid', 'issued' , 'expiry']      
         
         
     def create(self, validated_data):

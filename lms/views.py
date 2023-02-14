@@ -337,9 +337,8 @@ class IssueBookView(APIView):
         return Response(serializer.data)      
             
 class IssueBookListView(APIView):
-    def get(self,request):
+    def get(self,request,bid=None):
       queryset = booksd.objects.all()
-    #   queryset = users.objects.all()
 
     #   # Serialize list of todos item from Django queryset object to JSON formatted data
     #   read_serializer = RegUserSerializer(queryset, many=True)
