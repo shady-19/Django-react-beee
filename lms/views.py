@@ -264,11 +264,13 @@ class UserLoginView(APIView):
             raise AuthenticationFailed('incoorect password')
         
         
+        queryset=users.objects.get(uemail=email)
+        read_serializer = RegUserSerializer(queryset)
+            
         
         
-        return Response({
-            "LoggedIn Successfully!!!"
-        })
+        return Response(read_serializer.data)
+        
 
 #Delete User
 class UserDeleteView(APIView):
@@ -349,6 +351,35 @@ class IssueBookListView(APIView):
 
     # Return a HTTP response object with the list of todo items as JSON
       return Response(read_serializer.data)
+  
+  
+class BookReturnView(APIView):
+    def delete(self,request,oid=None):
+        
+        # token = request.COOKIES.get('jwt')
+
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated User')
+
+        # try:
+        #     payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        
+        # except jwt.ExpiredSignatureError :
+        #     raise AuthenticationFailed('Unauthenticated User')
+
+        try:
+      # Check if the todo item the user wants to update exists
+            item = booksd.objects.get(oid=oid)
+        except booksd.DoesNotExist:
+      # If the todo item does not exist, return an error response
+            return Response({'errors': 'This todo item does not exist.'}, status=400)
+
+    # Delete the chosen todo item from the database
+        item.delete()
+        
+
+    # Return a HTTP response notifying that the todo item was successfully deleted
+        return Response('Success')  
            
         
 

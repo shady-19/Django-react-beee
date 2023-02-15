@@ -34,6 +34,8 @@ urlpatterns = [
   path('search/',views.StudentListView.as_view()),
   path('issue/',views.IssueBookView.as_view()),
   path('issuedbooks/',views.IssueBookListView.as_view()),
+  path('returnbook/<int:oid>',views.BookReturnView.as_view()),
+ 
   
   # path('issue/<int:bid_id>',views.IssueBookByidView.as_view()),
   

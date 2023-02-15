@@ -1,7 +1,6 @@
 from django.db import models,models
 from django.db import models
 from datetime import datetime , timedelta
-
 from django.contrib.auth.models import AbstractUser 
 
 
@@ -59,8 +58,8 @@ class booksd(models.Model):
    
     #on Access Number, Title, Author, Subject, Keyword
     
-    issued=models.DateField(default=datetime.now().date(), blank=True)
-    expiry = models.DateField(default= datetime.now().date() + timedelta(days=30))
+    issued=models.DateTimeField(default=datetime.now().date(), blank=True)
+    expiry = models.DateTimeField(default= datetime.now() + timedelta(days=30))
     
     uid=models.ForeignKey(users, on_delete=models.CASCADE)
     bid=models.ForeignKey(books, on_delete=models.CASCADE)
