@@ -204,6 +204,7 @@ class BookListView(APIView):
 
     # Return a HTTP response object with the list of todo items as JSON
      return Response(read_serializer.data)
+ 
 #get All books
 
 class AllBooksView(APIView):
@@ -262,13 +263,10 @@ class UserLoginView(APIView):
 
         if user.upassword != password:
             raise AuthenticationFailed('incoorect password')
-        
-        
+     
         queryset=users.objects.get(uemail=email)
         read_serializer = RegUserSerializer(queryset)
-            
-        
-        
+    
         return Response(read_serializer.data)
         
 
