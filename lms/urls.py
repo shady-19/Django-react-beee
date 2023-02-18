@@ -30,6 +30,8 @@ urlpatterns = [
   path('getbooks/<int:bid>',views.BookListView.as_view()),
   path('getallbooks/',views.AllBooksView.as_view()),
   path('getallusers/',views.AllUserView.as_view()),
+  path('update/<int:bid>',views.BookUpdateView.as_view()),
+  
   
   path('search/',views.StudentListView.as_view()),
   path('issue/',views.IssueBookView.as_view()),

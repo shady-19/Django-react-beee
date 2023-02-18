@@ -350,6 +350,28 @@ class IssueBookListView(APIView):
     # Return a HTTP response object with the list of todo items as JSON
       return Response(read_serializer.data)
   
+
+class BookUpdateView(APIView): 
+    def put(self, request, bid=None):
+        try:
+            item=books.objects.get(bid=bid)
+        except books.DoesNotExist:
+            return Response({'errors' : 'Books does not exist'},status=400)    
+        update_serializer =RegBookSerializer(item,data=request.data)
+        
+        
+        if update_serializer.is_valid():
+            item_object =update_serializer.save()
+            
+            read_serializer = RegBookSerializer(item_object)
+            
+            return Response(read_serializer.data,status=200)
+        
+        return Response(update_serializer.errors,status=400)
+        
+      
+
+  
   
 class BookReturnView(APIView):
     def delete(self,request,oid=None):
