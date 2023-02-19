@@ -34,8 +34,6 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance      
 
-# #login
-
 
 #User
 class RegUserSerializer(serializers.ModelSerializer):
@@ -55,7 +53,7 @@ class RegUserSerializer(serializers.ModelSerializer):
 
 # #books
 
-# #1)Addbooks
+
 
 class RegBookSerializer(serializers.ModelSerializer):
   
@@ -69,7 +67,7 @@ class RegBookSerializer(serializers.ModelSerializer):
         instance.save()
         return instance  
     
-    
+#Issued Books   
 class IssueBookSerializer(serializers.ModelSerializer):
   
     class Meta:
