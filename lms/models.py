@@ -58,7 +58,7 @@ class booksd(models.Model):
    
     #on Access Number, Title, Author, Subject, Keyword
     
-    issued=models.DateTimeField(default=datetime.now().date(), blank=True)
+    issued=models.DateTimeField(default=datetime.now(), blank=True)
     expiry = models.DateTimeField(default= datetime.now() + timedelta(days=30))
     
     uid=models.ForeignKey(users, on_delete=models.CASCADE)

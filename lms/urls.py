@@ -14,8 +14,6 @@ urlpatterns = [
 #   #user
   path('ureg/', views.UserRegisterView.as_view()),
   
-  
-  
   path('ulogin/', views.UserLoginView.as_view()),
   
   
@@ -39,7 +37,6 @@ urlpatterns = [
   path('returnbook/<int:oid>',views.BookReturnView.as_view()),
  
   
-  # path('issue/<int:bid_id>',views.IssueBookByidView.as_view()),
   
   
   
